@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fazer pedido — Trindade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<main>
+  <section class="section-tight" style="background: var(--cream);">
+    <div class="container">
+      <p class="eyebrow">Cardápio completo</p>
+      <h1 style="font-size: 2.1rem;">Monte seu pedido</h1>
+      <p class="lede">Escolha as pizzas, ajuste as quantidades e finalize direto por aqui.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="order-layout">
+        <div id="menu-mount"></div>
+
+        <aside class="cart-panel" id="cart-panel">
+          <h2>Seu pedido</h2>
+          <div id="cart-lines"><p class="cart-empty">Seu carrinho está vazio. Adicione uma pizza ao lado.</p></div>
+          <div id="cart-total-wrap" class="hidden">
+            <div class="cart-total"><span>Total</span><span id="cart-total-value"></span></div>
+            <div class="field">
+              <label for="endereco" style="color: var(--cream);">Endereço de entrega</label>
+              <input type="text" id="endereco" placeholder="Rua, número, bairro" />
+            </div>
+            <div class="field">
+              <label for="observacao" style="color: var(--cream);">Observação (opcional)</label>
+              <textarea id="observacao" rows="2" placeholder="Ex: sem cebola, campainha quebrada..."></textarea>
+            </div>
+            <button type="button" id="btn-finalizar" class="btn btn-primary btn-block">Finalizar pedido</button>
+          </div>
+          <div id="order-success" class="hidden"></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/db.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/pedido.js"></script>
+</body>
+</html>

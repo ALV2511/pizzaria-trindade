@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Destaques da semana — Trindade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<main>
+  <section class="section-tight section-dark">
+    <div class="container">
+      <p class="eyebrow" style="color: var(--gold);">Semana de 09 a 15</p>
+      <h1>Destaques da semana</h1>
+      <p class="lede">Uma seleção curta do que está saindo mais do forno essa semana — da receita clássica às combinações especiais do chef.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div id="destaques-grid" class="ticket-grid"></div>
+      <p id="destaques-vazio" class="empty-state hidden">Nenhum destaque cadastrado essa semana. Volte em breve!</p>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/db.js"></script>
+<script src="js/nav.js"></script>
+<script>
+  renderHeader("destaques");
+  renderFooter();
+
+  const grid = document.getElementById("destaques-grid");
+  const vazio = document.getElementById("destaques-vazio");
+  const destaques = DB.getProducts().filter((p) => p.destaque);
+
+  if (destaques.length === 0) {
+    vazio.classList.remove("hidden");
+  } else {
+    grid.innerHTML = destaques
+      .map(
+        (p) => `
+        <article class="ticket">
+          <div class="ticket-body">
+            <span class="ticket-tag">${p.categoria}</span>
+            <h3>${p.nome}</h3>
+            <p>${p.descricao}</p>
+          </div>
+          <div class="ticket-perf"></div>
+          <div class="ticket-foot">
+            <span class="price">${formatBRL(p.preco)}</span>
+            <a href="pedido.html?item=${p.id}" class="btn btn-primary btn-sm">Pedir esta</a>
+          </div>
+        </article>
+      `
+      )
+      .join("");
+  }
+</script>
+</body>
+</html>

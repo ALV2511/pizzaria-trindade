@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Painel do dono — Trindade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<main>
+  <section class="section-tight" style="background: var(--cream);">
+    <div class="container">
+      <p class="eyebrow">Área restrita</p>
+      <h1 style="font-size: 2.1rem;">Painel do dono</h1>
+      <p class="lede">Cadastre novos sabores, gerencie o cardápio e acompanhe os pedidos recebidos.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="admin-grid">
+        <div>
+          <div class="panel">
+            <h2>Novo produto</h2>
+            <div id="product-alert"></div>
+            <form id="product-form" novalidate>
+              <div class="field">
+                <label for="p-nome">Nome</label>
+                <input type="text" id="p-nome" required />
+              </div>
+              <div class="field">
+                <label for="p-descricao">Descrição</label>
+                <textarea id="p-descricao" rows="2"></textarea>
+              </div>
+              <div class="field">
+                <label for="p-preco">Preço (R$)</label>
+                <input type="number" id="p-preco" min="0" step="0.10" required />
+              </div>
+              <div class="field">
+                <label for="p-categoria">Categoria</label>
+                <select id="p-categoria">
+                  <option>Tradicionais</option>
+                  <option>Especiais</option>
+                  <option>Doces</option>
+                </select>
+              </div>
+              <div class="checkbox-field">
+                <input type="checkbox" id="p-destaque" />
+                <label for="p-destaque">Marcar como destaque da semana</label>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Adicionar ao cardápio</button>
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <div class="panel">
+            <h2>Cardápio atual</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Produto</th>
+                    <th>Categoria</th>
+                    <th>Preço</th>
+                    <th>Destaque</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="products-table-body"></tbody>
+              </table>
+            </div>
+            <p id="products-empty" class="empty-state hidden">Nenhum produto cadastrado ainda.</p>
+          </div>
+
+          <div class="panel">
+            <h2>Pedidos recebidos</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nº</th>
+                    <th>Cliente</th>
+                    <th>Itens</th>
+                    <th>Total</th>
+                    <th>Recebido em</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="orders-table-body"></tbody>
+              </table>
+            </div>
+            <p id="orders-empty" class="empty-state hidden">Nenhum pedido recebido ainda.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/db.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

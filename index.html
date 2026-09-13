@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trindade — Pizzaria de bairro assada à lenha</title>
+<meta name="description" content="Pizzaria Trindade — pizzas assadas à lenha, tradição de bairro desde 1998. Veja os destaques da semana e faça seu pedido." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Bairro Trindade, desde 1998</p>
+        <h1>Pizza assada à lenha, do jeito que sempre foi.</h1>
+        <p class="lede">Massa de fermentação lenta, ingredientes frescos e o forno a lenha que já esquenta a mesma esquina há mais de duas décadas.</p>
+        <div class="hero-actions">
+          <a href="destaques.html" class="btn btn-primary">Ver destaques da semana</a>
+          <a href="pedido.html" class="btn btn-ghost-light">Fazer pedido</a>
+        </div>
+      </div>
+      <div class="hero-figure">
+        <div class="pizza-frame">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="200" cy="200" r="170" fill="#E7A93E"/>
+            <circle cx="200" cy="200" r="150" fill="#F3D27B"/>
+            <g fill="#B8791F" opacity="0.55">
+              <ellipse cx="200" cy="35" rx="5" ry="3"/>
+              <ellipse cx="290" cy="70" rx="4" ry="3"/>
+              <ellipse cx="345" cy="160" rx="5" ry="3"/>
+              <ellipse cx="345" cy="250" rx="4" ry="3"/>
+              <ellipse cx="290" cy="335" rx="5" ry="3"/>
+              <ellipse cx="200" cy="368" rx="4" ry="3"/>
+              <ellipse cx="105" cy="335" rx="5" ry="3"/>
+              <ellipse cx="55" cy="250" rx="4" ry="3"/>
+              <ellipse cx="55" cy="150" rx="5" ry="3"/>
+              <ellipse cx="110" cy="65" rx="4" ry="3"/>
+            </g>
+            <g fill="#D6491F">
+              <circle cx="150" cy="140" r="17"/>
+              <circle cx="240" cy="120" r="17"/>
+              <circle cx="270" cy="210" r="17"/>
+              <circle cx="205" cy="255" r="17"/>
+              <circle cx="130" cy="235" r="17"/>
+              <circle cx="200" cy="195" r="15"/>
+            </g>
+            <g fill="#4B5A3F">
+              <ellipse cx="180" cy="170" rx="12" ry="6" transform="rotate(25 180 170)"/>
+              <ellipse cx="250" cy="270" rx="12" ry="6" transform="rotate(-20 250 270)"/>
+              <ellipse cx="140" cy="290" rx="11" ry="5.5" transform="rotate(60 140 290)"/>
+              <ellipse cx="290" cy="160" rx="11" ry="5.5" transform="rotate(-45 290 160)"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Como funciona</p>
+          <h2>Do forno à sua mesa em três passos</h2>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">01</span>
+          <h3>Escolha sua pizza</h3>
+          <p>Navegue pelo cardápio completo ou pelos destaques da semana.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">02</span>
+          <h3>Finalize o pedido</h3>
+          <p>Informe o endereço e uma observação, se precisar de algo especial.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">03</span>
+          <h3>Retire ou receba</h3>
+          <p>Acompanhe o status do seu pedido direto na sua conta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tight" style="background: var(--cream);">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Essa semana</p>
+          <h2>Destaques do forno</h2>
+        </div>
+        <a href="destaques.html" class="btn btn-ghost">Ver todos os destaques</a>
+      </div>
+      <div id="home-destaques" class="ticket-grid"></div>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/db.js"></script>
+<script src="js/nav.js"></script>
+<script>
+  renderHeader("index");
+  renderFooter();
+
+  const mount = document.getElementById("home-destaques");
+  const destaques = DB.getProducts().filter((p) => p.destaque).slice(0, 3);
+
+  mount.innerHTML = destaques
+    .map(
+      (p) => `
+      <article class="ticket">
+        <div class="ticket-body">
+          <span class="ticket-tag">${p.categoria}</span>
+          <h3>${p.nome}</h3>
+          <p>${p.descricao}</p>
+        </div>
+        <div class="ticket-perf"></div>
+        <div class="ticket-foot">
+          <span class="price">${formatBRL(p.preco)}</span>
+          <a href="pedido.html?item=${p.id}" class="btn btn-primary btn-sm">Pedir</a>
+        </div>
+      </article>
+    `
+    )
+    .join("");
+</script>
+</body>
+</html>

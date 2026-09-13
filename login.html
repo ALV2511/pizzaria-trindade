@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Entrar — Trindade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="form-card">
+        <p class="eyebrow text-center">Bem-vindo de volta</p>
+        <h1 class="text-center" style="font-size: 1.9rem;">Entrar na sua conta</h1>
+        <div class="ticket-perf"></div>
+
+        <div id="form-alert"></div>
+
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required autocomplete="current-password" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+        </form>
+
+        <p class="form-foot">Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+
+        <div class="demo-hint">
+          Site de demonstração — use <code>admin@trindade.com</code> / <code>admin123</code> para acessar o painel do dono, ou crie uma conta de cliente pelo cadastro.
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/db.js"></script>
+<script src="js/nav.js"></script>
+<script>
+  renderHeader("login");
+  renderFooter();
+
+  const params = new URLSearchParams(window.location.search);
+  const next = params.get("next");
+
+  const form = document.getElementById("login-form");
+  const alertBox = document.getElementById("form-alert");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const senha = document.getElementById("senha").value;
+
+    const user = DB.login(email, senha);
+    if (!user) {
+      alertBox.innerHTML = `<div class="alert alert-error">E-mail ou senha incorretos. Confira e tente novamente.</div>`;
+      return;
+    }
+
+    if (next) {
+      window.location.href = next;
+    } else if (user.role === "admin") {
+      window.location.href = "admin.html";
+    } else {
+      window.location.href = "pedido.html";
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Criar conta — Trindade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="form-card">
+        <p class="eyebrow text-center">Novo por aqui?</p>
+        <h1 class="text-center" style="font-size: 1.9rem;">Criar sua conta</h1>
+        <div class="ticket-perf"></div>
+
+        <div id="form-alert"></div>
+
+        <form id="cadastro-form" novalidate>
+          <div class="field">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="nome" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" autocomplete="tel" />
+          </div>
+          <div class="field">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required minlength="4" autocomplete="new-password" />
+            <p class="field-hint">Mínimo de 4 caracteres.</p>
+          </div>
+          <div class="field">
+            <label for="confirmar">Confirmar senha</label>
+            <input type="password" id="confirmar" name="confirmar" required autocomplete="new-password" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Criar conta</button>
+        </form>
+
+        <p class="form-foot">Já tem conta? <a href="login.html">Entrar</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/db.js"></script>
+<script src="js/nav.js"></script>
+<script>
+  renderHeader("cadastro");
+  renderFooter();
+
+  const form = document.getElementById("cadastro-form");
+  const alertBox = document.getElementById("form-alert");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const telefone = document.getElementById("telefone").value.trim();
+    const senha = document.getElementById("senha").value;
+    const confirmar = document.getElementById("confirmar").value;
+
+    if (senha !== confirmar) {
+      alertBox.innerHTML = `<div class="alert alert-error">As senhas não coincidem.</div>`;
+      return;
+    }
+    if (senha.length < 4) {
+      alertBox.innerHTML = `<div class="alert alert-error">A senha precisa ter pelo menos 4 caracteres.</div>`;
+      return;
+    }
+    if (DB.findUserByEmail(email)) {
+      alertBox.innerHTML = `<div class="alert alert-error">Já existe uma conta com esse e-mail. Tente entrar.</div>`;
+      return;
+    }
+
+    DB.addUser({ nome, email, telefone, senha });
+    DB.login(email, senha);
+    window.location.href = "pedido.html";
+  });
+</script>
+</body>
+</html>
